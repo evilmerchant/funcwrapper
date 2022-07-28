@@ -66,6 +66,7 @@ func (h *handler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 
 	req.URL = rawUrl
 	req.Method = httpTrigger.Method
+	req.RequestURI = rawUrl.Path
 	writer := NewWriter()
 
 	h.inner.ServeHTTP(writer, req)
