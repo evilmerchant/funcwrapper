@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -36,6 +37,9 @@ func (h *handler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 		createErrorResponse(err, res)
 		return
 	}
+
+	log.Println(len(data))
+	log.Println(string(data))
 
 	var httpTrigger HttpTriggerRequest
 	err = json.Unmarshal(data, &httpTrigger)
