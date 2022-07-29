@@ -38,6 +38,7 @@ func (h *handler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 	}
 
 	if string(data) == "null" {
+		req.Body = ioutil.NopCloser(bytes.NewBuffer(content))
 		h.inner.ServeHTTP(res, req)
 		return
 	}
