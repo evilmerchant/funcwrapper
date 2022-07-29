@@ -44,6 +44,11 @@ func (h *handler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	if httpTrigger.Body == "" {
+		h.inner.ServeHTTP(res, req)
+		return
+	}
+
 	req.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(httpTrigger.Body)))
 	for k := range req.Header {
 		delete(req.Header, k)
