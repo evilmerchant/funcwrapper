@@ -6,6 +6,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
 type handler struct {
@@ -78,5 +81,13 @@ func (h *handler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 	h.inner.ServeHTTP(writer, req)
 
 	createHttpResponse(input.Metadata, *writer, res)
+}
 
+func Listen(listenAddr string, engine *gin.Engine) {
+	if val, ok := os.LookupEnv("FUNCTIONS_CUSTOMHANDLER_PORT"); ok {
+		listenAddr = ":" + val
+		http.ListenAndServe(listenAddr, Handler(engine))
+	} else {
+		engine.Run(listenAddr)
+	}
 }
