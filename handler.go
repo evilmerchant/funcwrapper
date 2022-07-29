@@ -37,7 +37,7 @@ func (h *handler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if string(data) == "" {
+	if string(data) == "null" {
 		h.inner.ServeHTTP(res, req)
 		return
 	}
