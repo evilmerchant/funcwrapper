@@ -44,7 +44,7 @@ func (h *handler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if httpTrigger.Body == "" {
+	if len(data) == 0 {
 		h.inner.ServeHTTP(res, req)
 		return
 	}
